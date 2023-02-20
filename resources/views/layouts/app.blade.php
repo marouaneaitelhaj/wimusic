@@ -31,7 +31,7 @@
         }
     </style>
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/main.js', 'resources/css/app.css'])
 </head>
 
 <body>
@@ -68,10 +68,10 @@
                             <a class="nav-link text-warning" href="./">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="{{ url('artiste') }}">Artiste</a>
+                            <a class="nav-link text-warning" href="{{ url('artistes') }}">Artiste</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="{{ url('artiste') }}">Discover</a>
+                            <a class="nav-link text-warning" href="{{ url('discover') }}">Discover</a>
                         </li>
                         @guest
                             @if (Route::has('login'))
@@ -115,12 +115,15 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <div class="fixed-bottom bg-black justify-content-around p-3 d-flex">
+            <i class="fa-solid fa-arrow-left text-white"></i>
+            <i id="run" class="fa-solid fa-play  text-warning"></i>
+            <i class="fa-solid fa-arrow-right text-white"></i>
+        </div>
+        <audio id="music">
+            <source src="https://www.bensound.com/bensound-music/bensound-dubstep.mp3" type="audio/mpeg">
+        </audio>
     </div>
 </body>
-<script>
-    play(){
-        console.log('lkdjflkjfsk')
-    }
-</script>
 
 </html>

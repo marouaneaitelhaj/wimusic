@@ -21,7 +21,11 @@ class piecesFactory extends Factory
             'titre' => $this->faker->title(),
             'image_couverture' => $this->faker->imageUrl(),
             'artiste_id' => artiste::factory(),
-            'fichier_audio' => 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+            'fichier_audio' => $this->faker->randomElement([
+                'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+                'https://www.learningcontainer.com/wp-content/uploads/2020/02/Electronic-Music.mp3',
+                'https://www.learningcontainer.com/wp-content/uploads/2020/02/Funny-song.mp3'
+            ]),
         ];
     }
 }

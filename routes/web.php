@@ -23,3 +23,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('', [App\Http\Controllers\ArtisteController::class, 'index']);
 Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
 Route::get('artiste/{artiste}', [App\Http\Controllers\ArtisteController::class, 'artiste']);
+Route::get('discover', [App\Http\Controllers\piecesController::class, 'index']);
