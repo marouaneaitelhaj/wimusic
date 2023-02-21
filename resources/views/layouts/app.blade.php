@@ -16,20 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Rubik', sans-serif;
-        }
-
-        :root {
-            --main-bg-color: #FFA500;
-            --main-bbg-color: black;
-        }
-
-        .card:hover {
-            filter: brightness(75%)
-        }
-    </style>
+    
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/main.js', 'resources/css/app.css'])
 </head>
@@ -120,9 +107,6 @@
             <i id="run" class="fa-solid fa-play  text-warning"></i>
             <i class="fa-solid fa-arrow-right text-white"></i>
         </div>
-        <audio id="music">
-            <source src="https://www.bensound.com/bensound-music/bensound-dubstep.mp3" type="audio/mpeg">
-        </audio>
     </div>
 </body>
 

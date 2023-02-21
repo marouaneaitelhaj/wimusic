@@ -1,1 +1,15 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
+* {
+    font-family: 'Rubik', sans-serif;
+}
+
+:root {
+    --main-bg-color: #FFA500;
+    --main-bbg-color: black;
+}
+.card{
+    background-color: black;
+}
+.card:hover {
+    background-color: #2a2a2a;
+}
