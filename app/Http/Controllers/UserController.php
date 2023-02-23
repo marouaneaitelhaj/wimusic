@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pieces;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class piecesController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($something = null)
+    public function index($id)
     {
-        if(!$something == null){
-            $data = pieces::where('id','LIKE','%'.$something.'%')
-            ->orWhere('titre', 'LIKE', '%'.$something.'%')
-            ->get();
-        }else{
-            $data = pieces::all();
-        }
-        return view('discover', compact('data'));
+        $data = User::where('id', '=', $id)->first();
+        return view('profile', compact('data'));
     }
 
     /**
@@ -48,10 +42,10 @@ class piecesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\pieces  $pieces
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(pieces $pieces)
+    public function show(User $user)
     {
         //
     }
@@ -59,10 +53,10 @@ class piecesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\pieces  $pieces
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(pieces $pieces)
+    public function edit(User $user)
     {
         //
     }
@@ -71,10 +65,10 @@ class piecesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\pieces  $pieces
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pieces $pieces)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -82,10 +76,10 @@ class piecesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\pieces  $pieces
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pieces $pieces)
+    public function destroy(User $user)
     {
         //
     }

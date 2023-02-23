@@ -19,6 +19,7 @@ class ArtisteFactory extends Factory
         return [
             'nom' => $this->faker->name,
             'pays' => $this->faker->country,
+            'ban' => $this->faker->boolean,
             'date_de_naissance' => $this->faker->date('Y-m-d', '-20 years'),
             'image' => $this->faker->imageUrl(),
         ];

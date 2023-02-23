@@ -16,7 +16,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/main.js', 'resources/css/app.css'])
 </head>
@@ -24,11 +26,11 @@
 <body>
     <div id="app" style="min-height:100vh;position:relative;">
         @if (Request::getRequestUri() == '/')
-            <img src="https://images.pexels.com/photos/4571219/pexels-photo-4571219.jpeg" id="bgimage"
+            <img src="https://images.pexels.com/photos/1293551/pexels-photo-1293551.jpeg" id="bgimage"
                 style="filter:brightness(20%);z-index:-1;position:fixed;height: 100vh;width: 100%;object-fit: cover;">
         @else
             <img src="https://images.pexels.com/photos/4571219/pexels-photo-4571219.jpeg" id="bgimage"
-                style="filter:brightness(5%);z-index:-1;position:fixed;height: 100vh;width: 100%;object-fit: cover;">
+                style="filter:brightness(10%);z-index:-1;position:fixed;height: 100vh;width: 100%;object-fit: cover;">
         @endif
         <nav style="background: transparent;" class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
@@ -36,6 +38,14 @@
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     <span class="maincolor text-warning">WiMusic</span>
                 </a>
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control" />
+                    </div>
+                    <button type="button" class="btn btn-warning">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
                 <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -51,6 +61,11 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        @if (auth()->guard('admin')->check())
+                            <li class="nav-item">
+                                <a class="nav-link text-warning" href="dashboard">Dashboard</a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link text-warning" href="./">Home</a>
                         </li>
@@ -60,7 +75,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-warning" href="{{ url('discover') }}">Discover</a>
                         </li>
-                        @guest
+                        @unless(auth()->guard('admin')->check() ||
+                                auth()->guard('web')->check())
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link text-warning" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -78,10 +94,18 @@
                                 <a id="navbarDropdown" class="nav-link text-warning dropdown-toggle" href="#"
                                     role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     v-pre>
-                                    {{ Auth::user()->name }}
+                                    @if (auth()->guard('admin')->check())
+                                        Admin
+                                    @else
+                                        {{ Auth::user()->name }}
+                                    @endif
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if (auth()->guard('web')->check())
+                                        <a class="dropdown-item"
+                                            href="{{ url('profile/' . Auth::user()->id) }}">Profile</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -93,13 +117,20 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                        @endunless
                     </ul>
                 </div>
             </div>
         </nav>
 
         <main class="py-4">
+            <div class="d-flex justify-content-center">
+                @if (session()->has('done'))
+                    <div class="d-flex justify-content-center bg-white w-50">
+                        <p class="text-black">{{ session()->get('done') }}</p>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </main>
         <div class="fixed-bottom bg-black justify-content-around p-3 d-flex">

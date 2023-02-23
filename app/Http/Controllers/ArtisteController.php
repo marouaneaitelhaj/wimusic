@@ -18,11 +18,12 @@ class ArtisteController extends Controller
      */
     public function index()
     {
+        // dd(auth('admin')->user());
         return view('index');
     }
     public function artistes(artiste $artiste)
     {
-        $data = artiste::all();
+        $data = artiste::where('ban',1)->get();
         return view('artistes', compact('data'));
     }
     public function artiste(artiste $artiste)

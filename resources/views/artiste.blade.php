@@ -15,14 +15,13 @@
             </div>
             <div class="m-4 w-75">
                 @foreach ($tracks as $track)
-                    <div style="background-color: #333333" class=" mt-4 d-flex float-left align-items-center w-75 rounded">
-                        <button onclick="playmusic()">
-                            <i class="fa-solid fa-play  text-warning "></i>
-                        </button>
-                        <img class=" run p-2 object-fit-cover rounded-circle" src="{{ $track->image_couverture }}"
-                            style="width: 50px;height:50px;">
-                        <p class="p-2 text-white">{{ $track->titre }}</p>
-                        <p class="ml-auto p-2 text-white">{{ $track->created_at }}</p>
+                    <div value='{{ $track->fichier_audio }}' class="card  d-flex justify-content-center align-items-center"
+                        style="width:20%;">
+                        <img class="playbtn rounded-circle m-4 mx-auto d-block card-img-top"
+                            style="object-fit: cover;width: 150px;height: 150px;" src="{{ $track->image_couverture }}"
+                            alt="Card image cap">
+                        <p class="text-white">{{ $track->titre }}</p>
+                        <span class="text-warning">Track</span>
                     </div>
                 @endforeach
             </div>

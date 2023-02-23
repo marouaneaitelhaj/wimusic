@@ -27,3 +27,15 @@ for (var i = 0; i < playButton.length; i++) {
     }
     )
 };
+document.getElementById('form1').addEventListener('change',function(){
+    $.ajax({
+        url : 'http://127.0.0.1:8000/discover/${document.getElementById("form1").value}',
+        type : 'GET',
+        beforeSend: function(xhr){
+            document.getElementById('mainone').innerHTML = '<div class="spinner-border text-warning" role="status"> <span class="sr-only">Loading...</span> </div>'
+        },
+        success : function(data) {              
+            console.log(data)
+        },
+    });
+})
