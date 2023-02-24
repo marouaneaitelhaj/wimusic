@@ -18,20 +18,21 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('', [App\Http\Controllers\ArtisteController::class, 'index']);
-Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
-Route::get('artiste/{artiste}', [App\Http\Controllers\ArtisteController::class, 'artiste']);
-Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'index']);
-Route::get('discover/{something?}', [App\Http\Controllers\piecesController::class, 'index']);
 Route::get('admin/signup', [App\Http\Controllers\AdminController::class, 'create'])->middleware('guest');
 Route::post('admin/signup', [App\Http\Controllers\AdminController::class, 'store'])->middleware('guest');
-Route::get('admin/login', [App\Http\Controllers\AdminController::class, 'login']);
-Route::post('admin/login', [App\Http\Controllers\AdminController::class, 'check']);
-Route::get('admin/logout', [App\Http\Controllers\AdminController::class, 'logout']);
-Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard']);
-Route::get('dashboard/artistes', [App\Http\Controllers\AdminController::class, 'artistes']);
-Route::get('dashboard/pieces', [App\Http\Controllers\AdminController::class, 'pieces']);
-Route::get('dashboard/addartistes', [App\Http\Controllers\AdminController::class, 'addartistes']);
-Route::get('dashboard/ban/{id}', [App\Http\Controllers\AdminController::class, 'ban']);
+Route::get('admin/login', [App\Http\Controllers\AdminController::class, 'login'])->middleware('guest');
+Route::post('admin/login', [App\Http\Controllers\AdminController::class, 'check'])->middleware('guest');
+Route::get('admin/logout', [App\Http\Controllers\AdminController::class, 'logout'])->middleware('guest');
+Route::middleware('auth')->group(function () {
+    Route::get('artiste/{artiste}', [App\Http\Controllers\ArtisteController::class, 'artiste']);
+    Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'index']);
+    Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
+    Route::get('discover/{something?}', [App\Http\Controllers\piecesController::class, 'index']);
+    Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin');
+    Route::get('dashboard/artistes', [App\Http\Controllers\AdminController::class, 'artistes']);
+    Route::get('dashboard/pieces', [App\Http\Controllers\AdminController::class, 'pieces']);
+    Route::get('dashboard/addartistes', [App\Http\Controllers\AdminController::class, 'addartistes']);
+    Route::get('dashboard/ban/{id}', [App\Http\Controllers\AdminController::class, 'ban']);
+});

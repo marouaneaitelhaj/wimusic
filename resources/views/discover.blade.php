@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div id="mainone" class="d-flex justify-content-around flex-wrap">
+    <div class="mainone d-flex justify-content-start flex-wrap">
         @foreach ($data as $track)
             <div value='{{ $track->fichier_audio }}' class="card  d-flex justify-content-center align-items-center"
                 style="width:20%;">

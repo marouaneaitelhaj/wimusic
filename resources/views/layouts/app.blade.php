@@ -38,14 +38,16 @@
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     <span class="maincolor text-warning">WiMusic</span>
                 </a>
-                <div class="input-group">
-                    <div class="form-outline">
-                        <input type="search" id="form1" class="form-control" />
+                @if (url()->current() == 'http://127.0.0.1:8000/discover')
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="search" id="form1" class="form-control" />
+                        </div>
+                        <button type="button" class="btn btn-warning">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-warning">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+                @endif
                 <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
