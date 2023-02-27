@@ -12,3 +12,6 @@
 .card:hover {
     background-color: #2a2a2a;
 }
+.d-none{
+    transition: visibility 0s, opacity 0.5s linear;
+}

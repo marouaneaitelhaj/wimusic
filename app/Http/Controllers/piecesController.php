@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\pieces;
+use App\Models\likedsongs;
 use Illuminate\Http\Request;
 
 class piecesController extends Controller
@@ -14,14 +15,34 @@ class piecesController extends Controller
      */
     public function index($something = null)
     {
-        if(!$something == null){
-            $data = pieces::where('id','LIKE','%'.$something.'%')
-            ->orWhere('titre', 'LIKE', '%'.$something.'%')
-            ->get();
-        }else{
+        if (!$something == null) {
+            $data = pieces::where('id', 'LIKE', '%' . $something . '%')
+                ->orWhere('titre', 'LIKE', '%' . $something . '%')
+                ->get();
+        } else {
             $data = pieces::all();
         }
         return view('discover', compact('data'));
+    }
+    public function check($request){
+        if(likedsongs::where('song_id', $request['id'])->where('user_id', $request['user_id'])->exists()){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+    public function liked(Request $request)
+    {
+        if (likedsongs::where('song_id', $request->id)->where('user_id', $request->user_id)->exists()) {
+            likedsongs::where('song_id', $request->id)->where('user_id', $request->user_id)->delete();
+            return redirect('./discover');
+        } else {
+            $liked = new likedsongs;
+            $liked->song_id = $request->id;
+            $liked->user_id = $request->user_id;
+            $liked->save();
+            return redirect('./discover');
+        }
     }
 
     /**

@@ -40,3 +40,9 @@ document.getElementById('form1').addEventListener('input', function () {
         },
     });
 })
+for (var i = 0; i < document.querySelectorAll('.more').length; i++) {
+    document.querySelectorAll('.more')[i].addEventListener('click', function(e){
+        
+        e.target.parentElement.parentElement.parentElement.children[1].children[1].classList.toggle('d-none')
+    })
+}
