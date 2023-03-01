@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\pieces;
 use App\Models\likedsongs;
+use App\Models\playlists;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as Auth;    
 
 class piecesController extends Controller
 {
@@ -15,6 +17,8 @@ class piecesController extends Controller
      */
     public function index($something = null)
     {
+        $id = Auth::user()->id;
+        $playlists = playlists::where('user_id','=', $id)->get();
         if (!$something == null) {
             $data = pieces::where('id', 'LIKE', '%' . $something . '%')
                 ->orWhere('titre', 'LIKE', '%' . $something . '%')
@@ -22,7 +26,7 @@ class piecesController extends Controller
         } else {
             $data = pieces::all();
         }
-        return view('discover', compact('data'));
+        return view('discover', compact('data','playlists'));
     }
     public function check($request){
         if(likedsongs::where('song_id', $request['id'])->where('user_id', $request['user_id'])->exists()){

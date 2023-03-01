@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\playlists;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,7 +16,8 @@ class UserController extends Controller
     public function index($id)
     {
         $data = User::where('id', '=', $id)->first();
-        return view('profile', compact('data'));
+        $playlists = playlists::where('user_id','=', $id)->get();
+        return view('profile', compact('data', 'playlists'));
     }
 
     /**

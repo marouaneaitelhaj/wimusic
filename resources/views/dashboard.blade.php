@@ -39,15 +39,15 @@
                                 <td>{{ $artiste->pays }}</td>
                                 <td>{{ $artiste->created_at }}</td>
                                 <td>
-                                    @if($artiste->ban == 1)
-                                    <a href="ban/{{$artiste->id}}">
-                                        <button class="btn btn-danger">Ban</button>
-                                    </a>
+                                    @if ($artiste->ban == 1)
+                                        <a href="ban/{{ $artiste->id }}">
+                                            <button class="btn btn-danger">Ban</button>
+                                        </a>
                                     @endif
-                                    @if($artiste->ban == 0)
-                                    <a href="ban/{{$artiste->id}}">
-                                        <button class="btn btn-success">UnBan</button>
-                                    </a>
+                                    @if ($artiste->ban == 0)
+                                        <a href="ban/{{ $artiste->id }}">
+                                            <button class="btn btn-success">UnBan</button>
+                                        </a>
                                     @endif
                                 </td>
                             </tr>

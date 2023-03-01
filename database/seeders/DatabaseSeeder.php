@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\artiste::factory(25)->create();
         \App\Models\pieces::factory(25)->create();
+        \App\Models\playlists::factory(25)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

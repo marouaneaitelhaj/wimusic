@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
     Route::get('discover/{something?}', [App\Http\Controllers\piecesController::class, 'index']);
     Route::get('liked', [App\Http\Controllers\piecesController::class, 'liked'])->name('liked');
+    Route::get('addplaylist', [App\Http\Controllers\playlistsController::class, 'addplaylist'])->name('addplaylist');
+    Route::post('addplaylist', [App\Http\Controllers\playlistsController::class, 'store'])->name('addplaylist');
+    Route::get('addtoplaylist', [App\Http\Controllers\playlistsController::class, 'addtoplaylist'])->name('addtoplaylist');
     Route::get('check', [App\Http\Controllers\piecesController::class, 'check'])->name('check');
     Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin');
     Route::get('dashboard/artistes', [App\Http\Controllers\AdminController::class, 'artistes']);
