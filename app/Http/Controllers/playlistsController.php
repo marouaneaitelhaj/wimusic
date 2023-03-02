@@ -21,9 +21,15 @@ class playlistsController extends Controller
         $playlists->save();
         return redirect('./profile/' . Auth::user()->id);
     }
+    public function playlistSong(Request $request)
+    {
+        // $data = playlists_songs::where('playlists_id', '=', $request->playlistid)->get();
+        $data = playlists_songs::where('playlists_id', '=', $request->playlistid)->join('pieces', 'song_id', '=', 'pieces.id')->get();
+        // dd($data);
+        return view('playlistSong', compact('data'));
+    }
     public function addtoplaylist(Request $request)
     {
-        dd($request->song_id);
         $playlistssongs = new playlists_songs;
         $playlistssongs->playlists_id = $request->playlists_id;
         $playlistssongs->song_id = $request->song_id;

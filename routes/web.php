@@ -40,4 +40,5 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/pieces', [App\Http\Controllers\AdminController::class, 'pieces']);
     Route::get('dashboard/addartistes', [App\Http\Controllers\AdminController::class, 'addartistes']);
     Route::get('dashboard/ban/{id}', [App\Http\Controllers\AdminController::class, 'ban']);
+    Route::get('playlistSong', [App\Http\Controllers\playlistsController::class, 'playlistSong'])->name('playlistSong');
 });

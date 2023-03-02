@@ -1,3 +1,6 @@
+document.querySelector("#comment").addEventListener('click',function(){
+    console.log('jkxhdkqjsdhkj')
+})
 const runButton = document.getElementById('run');
 var audio = ''
 runButton.addEventListener('click', function () {
@@ -17,6 +20,7 @@ for (var i = 0; i < playButton.length; i++) {
         if (runButton.classList.contains('fa-play')) {
             runButton.classList.remove('fa-play');
             runButton.classList.add('fa-pause');
+            console.log(e.target.parentElement)
             audio = new Audio(e.target.parentElement.attributes[1].value)
             audio.play()
         } else {

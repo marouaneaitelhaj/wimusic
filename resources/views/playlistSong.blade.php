@@ -12,20 +12,6 @@
                     <i class="more fa-sharp fa-solid fa-ellipsis text-warning"></i>
                 </div>
                 <div class="d-flex flex-column d-flex justify-content-center w-100 position-relative">
-                    <div class="fixed-top d-none flex-column position-absolute d-flex justify-content-center rounded bg-light"
-                        id="hi-div">
-                        <p class="text-black m-2">Add to playlist</p>
-                        <div>
-                            <ul class="list-group">
-                                @foreach ($playlists as $playlist)
-                                    <a class="text-decoration-none"
-                                        href="{{ route('addtoplaylist', ['playlists_id' => $playlist->id, 'song_id'=> $track->id]) }}">
-                                        <li class="list-group-item">{{ $playlist->name }}</li>
-                                    </a>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
                     <div class="d-flex justify-content-center">
                         <p class="text-white">{{ $track->titre }}</p>
                     </div>
