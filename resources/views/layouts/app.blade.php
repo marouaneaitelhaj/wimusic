@@ -139,7 +139,6 @@
             <i class="fa-solid fa-arrow-left text-white"></i>
             <i id="run" class="fa-solid fa-play  text-warning"></i>
             <i class="fa-solid fa-arrow-right text-white"></i>
-            <i id="comment" class="fa fa-comment text-white" aria-hidden="true"></i>
         </div>
     </div>
 </body>

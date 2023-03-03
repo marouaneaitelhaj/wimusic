@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('artiste/{artiste}', [App\Http\Controllers\ArtisteController::class, 'artiste']);
     Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'index']);
     Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
+    Route::get('single/{id}', [App\Http\Controllers\piecesController::class, 'single'])->name('single');
+    Route::post('addComment', [App\Http\Controllers\commenterController::class, 'store'])->name('addComment');
     Route::get('discover/{something?}', [App\Http\Controllers\piecesController::class, 'index']);
     Route::get('liked', [App\Http\Controllers\piecesController::class, 'liked'])->name('liked');
     Route::get('addplaylist', [App\Http\Controllers\playlistsController::class, 'addplaylist'])->name('addplaylist');

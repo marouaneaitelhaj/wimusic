@@ -1,6 +1,3 @@
-document.querySelector("#comment").addEventListener('click',function(){
-    console.log('jkxhdkqjsdhkj')
-})
 const runButton = document.getElementById('run');
 var audio = ''
 runButton.addEventListener('click', function () {
@@ -31,6 +28,12 @@ for (var i = 0; i < playButton.length; i++) {
     }
     )
 };
+
+for (var i = 0; i < document.querySelectorAll('.more').length; i++) {
+    document.querySelectorAll('.more')[i].addEventListener('click', function(e){
+        e.target.parentElement.parentElement.children[2].children[0].classList.toggle('d-none')
+    })
+}
 document.getElementById('form1').addEventListener('input', function () {
     $.ajax({
         url: "http://127.0.0.1:8000/discover/" + document.getElementById("form1").value,
@@ -44,8 +47,3 @@ document.getElementById('form1').addEventListener('input', function () {
         },
     });
 })
-for (var i = 0; i < document.querySelectorAll('.more').length; i++) {
-    document.querySelectorAll('.more')[i].addEventListener('click', function(e){
-        e.target.parentElement.parentElement.children[2].children[0].classList.toggle('d-none')
-    })
-}

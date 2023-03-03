@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\pieces;
+use App\Models\commenter;
 use App\Models\likedsongs;
 use App\Models\playlists;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth as Auth;    
+use Illuminate\Support\Facades\Auth as Auth;
+use Termwind\Components\Dd;
 
 class piecesController extends Controller
 {
@@ -27,6 +29,15 @@ class piecesController extends Controller
             $data = pieces::all();
         }
         return view('discover', compact('data','playlists'));
+    }
+    public function single($id)
+    {
+        $user_id = Auth::user()->id;
+        // dd($user_id, $id);
+        $commenter = commenter::where('song_id', $id)->join('users', 'commenter.user_id', '=', 'users.id')->get();
+        $playlists = playlists::where('user_id', '=', $user_id)->get();
+        $track = pieces::where('id', $id)->first();
+        return view('single', compact('track', 'playlists', 'commenter'));
     }
     public function check($request){
         if(likedsongs::where('song_id', $request['id'])->where('user_id', $request['user_id'])->exists()){
