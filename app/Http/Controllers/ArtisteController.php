@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\artiste;
 use App\Models\pieces;
+use App\Models\toartistes;
 use App\Http\Requests\StoreartisteRequest;
 use App\Http\Requests\UpdateartisteRequest;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
@@ -21,9 +23,24 @@ class ArtisteController extends Controller
         // dd(auth('admin')->user());
         return view('index');
     }
+    public function ToArtistes(Request $request)
+    {
+        $ToArtistes = $request->validate([
+            'user_id'  => 'required|unique:toartistes,user_id'
+        ]);
+        $istoartistes =  toartistes::create($ToArtistes);
+        if ($istoartistes) {
+            return back()->with('success', 'Votre demande a été envoyée avec succès');
+        } else {
+            return back()->withErrors([
+                'user_id' => ['Votre demande est déjà envoyée'],
+            ]);
+        }
+    }
+    
     public function artistes(artiste $artiste)
     {
-        $data = artiste::where('ban',1)->get();
+        $data = artiste::where('ban', 1)->get();
         return view('artistes', compact('data'));
     }
     public function artiste(artiste $artiste)

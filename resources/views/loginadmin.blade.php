@@ -31,6 +31,11 @@
 
 
                             <div class="row mb-0">
+                                <div class="m-2 d-flex justify-content-center">
+                                    @error('err')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Login

@@ -163,8 +163,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'user_id' => [
+            'unique' => 'Votre demande est déjà envoyée',
         ],
     ],
 

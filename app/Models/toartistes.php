@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class artiste extends Model
+class toartistes extends Model
 {
     use HasFactory;
-    protected $fillable= ['ban'];
+    protected $fillable = [
+        'user_id'
+    ];
 }

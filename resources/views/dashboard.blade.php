@@ -59,7 +59,32 @@
                 <p class="text-white">zzz</p>
             @endif
             @if (url()->current() == url('dashboard/addartistes'))
-                <p class="text-white">zzz</p>
+                <table class="w-100 bg-white table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">created_at</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($toartistes as $artiste)
+                            <tr>
+                                <th scope="row">{{ $artiste->id }}</th>
+                                <td>{{ $artiste->name }}</td>
+                                <td>{{ $artiste->created_at }}</td>
+                                <td>
+                                    @if ($artiste->type == null)
+                                        <a href="{{route('convertToArtistes', ['user' => $artiste])}}">
+                                            <button class="btn btn-danger">OKEY</button>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             @endif
         </div>
     </div>

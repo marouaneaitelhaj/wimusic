@@ -65,7 +65,7 @@
                         <!-- Authentication Links -->
                         @if (auth()->guard('admin')->check())
                             <li class="nav-item">
-                                <a class="nav-link text-warning" href="dashboard">Dashboard</a>
+                                <a class="nav-link text-warning" href="{{route('dashboard')}}">Dashboard</a>
                             </li>
                         @endif
                         <li class="nav-item">
