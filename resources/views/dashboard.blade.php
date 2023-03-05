@@ -55,6 +55,27 @@
                     </tbody>
                 </table>
             @endif
+            @if (url()->current() == url('dashboard/pieces'))
+                <table class="w-100 bg-white table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">created_at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- {{ $pieces }} --}}
+                        @foreach ($pieces as $piece)
+                            <tr>
+                                <th scope="row">{{ $piece->id }}</th>
+                                <td>{{ $piece->titre }}</td>
+                                <td>{{ $piece->created_at }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
             @if (url()->current() == url('dashboard/addartistes'))
                 <table class="w-100 bg-white table">
                     <thead>
@@ -73,7 +94,7 @@
                                 <td>{{ $artiste->created_at }}</td>
                                 <td>
                                     @if ($artiste->type == null)
-                                        <a href="{{route('convertToArtistes', ['user' => $artiste])}}">
+                                        <a href="{{ route('convertToArtistes', ['user' => $artiste]) }}">
                                             <button class="btn btn-danger">OKEY</button>
                                         </a>
                                     @endif

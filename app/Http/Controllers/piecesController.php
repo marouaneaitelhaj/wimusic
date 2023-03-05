@@ -19,16 +19,27 @@ class piecesController extends Controller
      */
     public function index($something = null)
     {
-        $id = Auth::user()->id;
-        $playlists = playlists::where('user_id','=', $id)->get();
-        if (!$something == null) {
-            $data = pieces::where('id', 'LIKE', '%' . $something . '%')
-                ->orWhere('titre', 'LIKE', '%' . $something . '%')
-                ->get();
+        if (!auth()->guard('admin')->check()) {
+            $id = Auth::user()->id;
+            $playlists = playlists::where('user_id', '=', $id)->get();
+            if (!$something == null) {
+                $data = pieces::where('id', 'LIKE', '%' . $something . '%')
+                    ->orWhere('titre', 'LIKE', '%' . $something . '%')
+                    ->get();
+            } else {
+                $data = pieces::all();
+            }
+            return view('discover', compact('data', 'playlists'));
         } else {
-            $data = pieces::all();
+            if (!$something == null) {
+                $data = pieces::where('id', 'LIKE', '%' . $something . '%')
+                    ->orWhere('titre', 'LIKE', '%' . $something . '%')
+                    ->get();
+            } else {
+                $data = pieces::all();
+            }
+            return view('discover', compact('data'));
         }
-        return view('discover', compact('data','playlists'));
     }
     public function single($id)
     {
@@ -39,10 +50,11 @@ class piecesController extends Controller
         $track = pieces::where('id', $id)->first();
         return view('single', compact('track', 'playlists', 'commenter'));
     }
-    public function check($request){
-        if(likedsongs::where('song_id', $request['id'])->where('user_id', $request['user_id'])->exists()){
+    public function check($request)
+    {
+        if (likedsongs::where('song_id', $request['id'])->where('user_id', $request['user_id'])->exists()) {
             return 0;
-        }else{
+        } else {
             return 1;
         }
     }
@@ -50,13 +62,13 @@ class piecesController extends Controller
     {
         if (likedsongs::where('song_id', $request->id)->where('user_id', $request->user_id)->exists()) {
             likedsongs::where('song_id', $request->id)->where('user_id', $request->user_id)->delete();
-            return redirect('./discover');
+            return back();
         } else {
             $liked = new likedsongs;
             $liked->song_id = $request->id;
             $liked->user_id = $request->user_id;
             $liked->save();
-            return redirect('./discover');
+            return back();
         }
     }
 
@@ -67,7 +79,7 @@ class piecesController extends Controller
      */
     public function create()
     {
-        //
+        return view('addpieces');
     }
 
     /**

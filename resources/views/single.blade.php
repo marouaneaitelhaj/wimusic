@@ -49,32 +49,35 @@
 
             </div>
         </div>
-        <div class=" d-flex justify-content-center align-items-center">
-            <div class="w-100 bg-black comments-section">
-                @foreach ($commenter as $comment)
-                    <div class="comment d-flex">
-                        <div class="commenter text-warning">{{ $comment->name }}</div>
-                        <div class="comment-content font-weight-light text-white">
-                            {{ $comment->comment }}
-                        </div>
-                    </div>
-                @endforeach
-                <form method="POST" action="{{ route('addComment') }}" class="add-comment-form">
-                    @csrf
-                    <input type="number" name="song_id" hidden value="{{ $track->id }}">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <textarea class="form-control"  name="comment" id="comment-content" rows="1"></textarea>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa-solid fa-comment"></i>
-                                </button>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="h-100 d-flex flex-column justify-content-end">
+                <div class="overflow-auto p-2 bg-black comments-section" style="height: calc(50vh - 60px);">
+                    <!-- subtracting the height of the form below -->
+                    @foreach ($commenter as $comment)
+                        <div class="comment d-flex">
+                            <div class="p-2 commenter text-warning">{{ $comment->name }}</div>
+                            <div class="ml-auto p-2 comment-content font-weight-light text-white">{{ $comment->comment }}
                             </div>
                         </div>
-                    </div>
-                </form>
+                    @endforeach
+                </div>
+                <div class="p-2">
+                    <form method="POST" action="{{ route('addComment') }}" class="add-comment-form">
+                        @csrf
+                        <input type="number" name="song_id" hidden value="{{ $track->id }}">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <textarea class="form-control" name="comment" id="comment-content" rows="1"></textarea>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fa-solid fa-comment"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-
         </div>
+
     </div>
 @endsection

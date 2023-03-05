@@ -23,15 +23,8 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/main.js', 'resources/css/app.css'])
 </head>
 
-<body>
+<body class="bg-black">
     <div id="app" style="min-height:100vh;position:relative;">
-        @if (Request::getRequestUri() == '/')
-            <img src="https://images.pexels.com/photos/1293551/pexels-photo-1293551.jpeg" id="bgimage"
-                style="filter:brightness(20%);z-index:-1;position:fixed;height: 100vh;width: 100%;object-fit: cover;">
-        @else
-            <img src="https://images.pexels.com/photos/4571219/pexels-photo-4571219.jpeg" id="bgimage"
-                style="filter:brightness(10%);z-index:-1;position:fixed;height: 100vh;width: 100%;object-fit: cover;">
-        @endif
         <nav style="background: transparent;" class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -65,7 +58,7 @@
                         <!-- Authentication Links -->
                         @if (auth()->guard('admin')->check())
                             <li class="nav-item">
-                                <a class="nav-link text-warning" href="{{route('dashboard')}}">Dashboard</a>
+                                <a class="nav-link text-warning" href="{{ route('dashboard') }}">Dashboard</a>
                             </li>
                         @endif
                         <li class="nav-item">

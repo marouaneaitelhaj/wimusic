@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\admin;
 use App\Models\artiste;
+use App\Models\pieces;
 use App\Models\User;
 use App\Models\toartistes;
 use Illuminate\Http\Request;
@@ -53,7 +54,8 @@ class AdminController extends Controller
     }
     public function pieces()
     {
-        return view('dashboard');
+        $pieces = pieces::all();
+        return view('dashboard', compact('pieces'));
     }
     public function login()
     {

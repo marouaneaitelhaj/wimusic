@@ -28,7 +28,7 @@ Route::middleware('guest')->group(
         Route::get('admin/logout', [App\Http\Controllers\AdminController::class, 'logout']);
     }
 );
-Route::middleware('auth')->group(
+Route::middleware('webadmin')->group(
     function () {
         Route::get('artiste/{artiste}', [App\Http\Controllers\ArtisteController::class, 'artiste']);
         Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'index']);
@@ -51,6 +51,8 @@ Route::middleware('admin')->group(
         Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('dashboard/artistes', [App\Http\Controllers\AdminController::class, 'artistes']);
         Route::get('dashboard/pieces', [App\Http\Controllers\AdminController::class, 'pieces']);
+        Route::get('dashboard/pieces/add', [App\Http\Controllers\piecesController::class, 'create']);
+        Route::post('dashboard/pieces/add', [App\Http\Controllers\piecesController::class, 'store']);
         Route::get('dashboard/addartistes', [App\Http\Controllers\AdminController::class, 'addartistes']);
         Route::get('dashboard/convertToArtistes', [App\Http\Controllers\AdminController::class, 'convertToArtistes'])->name('convertToArtistes');
         Route::get('dashboard/ban/{id}', [App\Http\Controllers\AdminController::class, 'ban']);
