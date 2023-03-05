@@ -33,7 +33,6 @@ Route::middleware('auth')->group(
         Route::get('artiste/{artiste}', [App\Http\Controllers\ArtisteController::class, 'artiste']);
         Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'index']);
         Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
-        Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
         Route::post('ToArtistes', [App\Http\Controllers\ArtisteController::class, 'ToArtistes'])->name('ToArtistes');
         Route::get('single/{id}', [App\Http\Controllers\piecesController::class, 'single'])->name('single');
         Route::get('discover/{something?}', [App\Http\Controllers\piecesController::class, 'index']);

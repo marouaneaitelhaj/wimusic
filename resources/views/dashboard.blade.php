@@ -55,9 +55,6 @@
                     </tbody>
                 </table>
             @endif
-            @if (url()->current() == url('dashboard/pieces'))
-                <p class="text-white">zzz</p>
-            @endif
             @if (url()->current() == url('dashboard/addartistes'))
                 <table class="w-100 bg-white table">
                     <thead>

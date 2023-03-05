@@ -14,14 +14,16 @@ class AdminController extends Controller
     public function convertToArtistes(Request $request)
     {
         $user = User::where('id', $request->user)->first();
-        dd($user->pays);
+        // dd($user->date_de_naissance);
         $artiste = new artiste();
         $artiste->nom = $user->name;
         $artiste->pays = $user->pays;
         $artiste->ban = 0;
-        $artiste->date_de_naissance = $request->date_de_naissance;
+        $artiste->date_de_naissance = $user->date_de_naissance;
         $artiste->image = $user->image;
         $artiste->save();
+        User::where('id', $user->id)->update(['type' => 'artiste']);
+        $toartistes = toartistes::where('user_id', $user->id)->delete();
         return back();
     }
     public function loginFront()
