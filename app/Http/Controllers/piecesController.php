@@ -124,7 +124,8 @@ class piecesController extends Controller
      */
     public function update(Request $request, pieces $pieces)
     {
-        //
+        pieces::where('id', $request->pieceid)->update(['titre' => $request->titre]);
+        return back();
     }
 
     /**

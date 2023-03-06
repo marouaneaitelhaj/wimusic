@@ -51,7 +51,7 @@ Route::middleware('admin')->group(
         Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('dashboard/artistes', [App\Http\Controllers\AdminController::class, 'artistes']);
         Route::get('dashboard/pieces', [App\Http\Controllers\AdminController::class, 'pieces']);
-        Route::get('dashboard/pieces/add', [App\Http\Controllers\piecesController::class, 'create']);
+        Route::post('dashboard/pieces', [App\Http\Controllers\piecesController::class, 'update'])->name('update/pieces');
         Route::post('dashboard/pieces/add', [App\Http\Controllers\piecesController::class, 'store']);
         Route::get('dashboard/addartistes', [App\Http\Controllers\AdminController::class, 'addartistes']);
         Route::get('dashboard/convertToArtistes', [App\Http\Controllers\AdminController::class, 'convertToArtistes'])->name('convertToArtistes');

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+    @foreach ($pieces as $piece)
+        <form action="{{ route('update/pieces') }}" id="{{ $piece->id }}" method="POST">
+            @csrf
+        </form>
+    @endforeach
     <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="d-flex w-100 justify-content-around align-items-center">
             <div>
@@ -18,6 +23,7 @@
                 </a>
             </div>
         </div>
+
         <div class="w-75 d-flex">
 
             @if (url()->current() == url('dashboard/artistes'))
@@ -61,18 +67,38 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">created_at</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- {{ $pieces }} --}}
                         @foreach ($pieces as $piece)
                             <tr>
                                 <th scope="row">{{ $piece->id }}</th>
-                                <td>{{ $piece->titre }}</td>
-                                <td>{{ $piece->created_at }}</td>
+                                <td>
+                                    <input name="titre" form="{{ $piece->id }}" type="text"
+                                        value="{{ $piece->titre }}">
+                                    <input name="pieceid" hidden form="{{ $piece->id }}" type="text"
+                                        value="{{ $piece->id }}">
+                                </td>
+                                <td>{{ $piece->updated_at }}</td>
+                                <td>
+                                    <button form="{{ $piece->id }}" class="btn bg-warning"
+                                        type="submit">Update</button>
+                                </td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <th scope="row">#</th>
+                            <td>
+                                <input placeholder="Add pieces" name="titre" form="{{ $piece->id }}" type="text"
+                                    value="">
+                            </td>
+                            <td></td>
+                            <td>
+                                <button form="{{ $piece->id }}" class="btn bg-warning" type="submit">Add</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             @endif
