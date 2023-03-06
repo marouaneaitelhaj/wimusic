@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    @foreach ($pieces as $piece)
-        <form action="{{ route('update/pieces') }}" id="{{ $piece->id }}" method="POST">
-            @csrf
-        </form>
-    @endforeach
+    @isset($pieces)
+        @foreach ($pieces as $piece)
+            <form action="{{ route('update/pieces') }}" id="{{ $piece->id }}" method="POST">
+                @csrf
+            </form>
+        @endforeach
+    @endisset
     <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="d-flex w-100 justify-content-around align-items-center">
             <div>
@@ -24,7 +26,7 @@
             </div>
         </div>
 
-        <div class="w-75 d-flex">
+        <div class="w-75 d-flex flex-column">
 
             @if (url()->current() == url('dashboard/artistes'))
                 <table class="w-100 bg-white table">
@@ -88,19 +90,35 @@
                                 </td>
                             </tr>
                         @endforeach
-                        <tr>
-                            <th scope="row">#</th>
-                            <td>
-                                <input placeholder="Add pieces" name="titre" form="{{ $piece->id }}" type="text"
-                                    value="">
-                            </td>
-                            <td></td>
-                            <td>
-                                <button form="{{ $piece->id }}" class="btn bg-warning" type="submit">Add</button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
+                <div class="vh-100 w-100 m-4">
+                    <form action="{{route('addpieces')}}" enctype="multipart/form-data" method="POST" class="bg-white d-flex flex-column">
+                        @csrf
+                        <div class=" form-group">
+                            <label for="">Titre</label>
+                            <input type="text" name="titre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="Titre">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Image Couverture</label>
+                            <input type="file" name="image_couverture" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Fichier audio</label>
+                            <input type="file" name="fichier_audio" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <select  class="form-control" name="artiste" id="">
+                                <option value="">Select Artiste</option>
+                                @foreach ($artistes as $artiste)
+                                    <option value="{{ $artiste->id }}">{{ $artiste->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             @endif
             @if (url()->current() == url('dashboard/addartistes'))
                 <table class="w-100 bg-white table">

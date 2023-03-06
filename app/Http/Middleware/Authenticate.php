@@ -14,8 +14,8 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-       if(auth()->guard('admin')->check() && auth()->guard('web')->check()){
-            return route('admin.dashboard');
+        if (auth()->guard('admin')->check() && auth()->guard('web')->check()) {
+            return back();
         }
     }
 }

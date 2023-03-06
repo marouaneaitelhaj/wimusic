@@ -54,8 +54,9 @@ class AdminController extends Controller
     }
     public function pieces()
     {
+        $artistes = artiste::all();
         $pieces = pieces::all();
-        return view('dashboard', compact('pieces'));
+        return view('dashboard', compact('pieces', 'artistes'));
     }
     public function login()
     {

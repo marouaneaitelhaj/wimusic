@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\pieces;
 use App\Models\commenter;
-use App\Models\likedsongs;
 use App\Models\playlists;
+use App\Models\likedsongs;
+use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
-use Termwind\Components\Dd;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class piecesController extends Controller
 {
@@ -90,7 +91,16 @@ class piecesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $fichier_audio = Cloudinary::upload($request->file('fichier_audio')->getRealPath())->getSecurePath();
+        $image_couverture = Cloudinary::upload($request->file('image_couverture')->getRealPath())->getSecurePath();
+        $pieces = new pieces;
+        $pieces->titre = $request->titre;
+        $pieces->artiste = $request->artiste;
+        $pieces->fichier_audio = $fichier_audio;
+        $pieces->image_couverture = $image_couverture;
+        $pieces->save();
+        return back();
     }
 
     /**

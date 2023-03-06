@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -55,7 +56,7 @@ class RegisterController extends Controller
             'pays' => ['required', 'string', 'min:5'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'date_de_naissance' => ['required', 'date', 'before:today'],
-            'image' => ['required', 'string', 'min:5'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
     }
 
@@ -67,13 +68,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $url = Cloudinary::upload($data['image']->getRealPath())->getSecurePath();
+
+        return  User::create([
             'name' => $data['name'],
             'pays' => $data['pays'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'date_de_naissance' => $data['date_de_naissance'],
-            'image' => $data['image'],
+            'image' => $url,
         ]);
     }
 }

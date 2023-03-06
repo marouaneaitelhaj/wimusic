@@ -19,5 +19,6 @@ class webadmin
         if (auth()->guard('web')->check() || auth()->guard('admin')->check()) {
             return $next($request);
         }
+        return redirect()->route('login');
     }
 }
