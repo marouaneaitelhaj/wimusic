@@ -34,7 +34,7 @@ Route::middleware('webadmin')->group(
         Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'index']);
         Route::get('artistes', [App\Http\Controllers\ArtisteController::class, 'artistes']);
         Route::post('ToArtistes', [App\Http\Controllers\ArtisteController::class, 'ToArtistes'])->name('ToArtistes');
-        Route::get('single/{id}', [App\Http\Controllers\piecesController::class, 'single'])->name('single');
+        Route::get('single/{slug}', [App\Http\Controllers\piecesController::class, 'single'])->name('single');
         Route::get('discover/{something?}', [App\Http\Controllers\piecesController::class, 'index']);
         Route::get('liked', [App\Http\Controllers\piecesController::class, 'liked'])->name('liked');
         Route::get('addplaylist', [App\Http\Controllers\playlistsController::class, 'addplaylist'])->name('addplaylist');
@@ -62,5 +62,7 @@ Route::middleware('admin')->group(
         Route::get('dashboard/ban/{id}', [App\Http\Controllers\AdminController::class, 'ban']);
         Route::get('Deletepieces', [App\Http\Controllers\piecesController::class, 'destroy'])->name('Deletepieces');
         Route::post('addbandes', [App\Http\Controllers\bandesController::class, 'store'])->name('addbandes');
+        Route::get('deleteBandes', [App\Http\Controllers\bandesController::class, 'destroy'])->name('deleteBandes');
+        Route::post('addmember', [App\Http\Controllers\bandesController::class, 'addmember'])->name('addmember');
     }
 );

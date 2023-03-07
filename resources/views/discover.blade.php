@@ -9,9 +9,10 @@
                 @if (!auth()->guard('admin')->check())
                     <div class="d-flex justify-content-around">
                         <i class="more fa-sharp fa-solid fa-ellipsis text-warning"></i>
-                        <a class="text-warning" href="{{ route('single', ['id' => $track->id]) }}">
+                        <p class="text-white">{{$track->slug}}</p>
+                        {{-- <a class="text-warning" href="{{ route('single', ['slug' => $track->slug]) }}">
                             <i class="fa-solid fa-right-to-bracket text-warning"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 @endif
                 <div class="d-flex flex-column justify-content-center align-items-center  position-relative">

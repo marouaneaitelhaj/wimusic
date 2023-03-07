@@ -62,6 +62,9 @@
                                             <button class="btn btn-success">UnBan</button>
                                         </a>
                                     @endif
+                                    <a href="{{ route('deleteBandes', ['id' => $artiste->id]) }}">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -83,25 +86,59 @@
                         <div class="col-md-6 col-lg-4">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Name</label>
-                                <input type="text" name="nom" class="form-control"
-                                    id="exampleInputPassword1">
+                                <input type="text" name="nom" class="form-control" id="exampleInputPassword1">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Pays</label>
-                                <input type="text" name="pays" class="form-control"
-                                    id="exampleInputPassword1">
+                                <input type="text" name="pays" class="form-control" id="exampleInputPassword1">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Image</label>
-                                <input type="file" name="image" class="form-control"
-                                    id="exampleInputPassword1">
+                                <input type="file" name="image" class="form-control" id="exampleInputPassword1">
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-8">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
+                    <div class="w-100 mt-4">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('addmember') }}" enctype="multipart/form-data" method="POST"
+                            class="bg-white d-flex align-items-center p-4 flex-column">
+                            @csrf
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <select class="form-control" name="id_membre" id="">
+                                        <option value="">Select Artiste</option>
+                                        @foreach ($artistes as $artiste)
+                                            <option value="{{ $artiste->id }}">{{ $artiste->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" name="id_bande" id="">
+                                        <option value="">Select Bandes</option>
+                                        @foreach ($bandes as $artiste)
+                                            <option value="{{ $artiste->id }}">{{ $artiste->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-8">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+
 
             @endif
             @if (url()->current() == url('dashboard/artistes'))

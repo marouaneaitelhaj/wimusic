@@ -23,8 +23,21 @@ class bandesController extends Controller
     }
     public function dashboardBandes()
     {
+        $artistes = artiste::all();
         $bandes = bandes::all();
-        return view('dashboard', compact('bandes'));
+        return view('dashboard', compact('bandes', 'artistes'));
+    }
+    public function addmember(Request $request)
+    {
+        $membres = $request->validate([
+            'id_bande' => 'required',
+            'id_membre' => 'required',
+        ]);
+        $membres = new membres();
+        $membres->id_bande = $request->id_bande;
+        $membres->id_membre = $request->id_membre;
+        $membres->save();
+        return back();
     }
 
     public function one($id)
@@ -112,8 +125,9 @@ class bandesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        bandes::where('id', $request->id)->delete();
+        return back();
     }
 }
