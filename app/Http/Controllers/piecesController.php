@@ -91,14 +91,19 @@ class piecesController extends Controller
      */
     public function store(Request $request)
     {
-
-        $fichier_audio = Cloudinary::upload($request->file('fichier_audio')->getRealPath())->getSecurePath();
+        $pieces = $request->validate([
+            'titre' => 'required|string|max:50',
+            'artiste' => 'required|integer',
+            'image_couverture' => 'required|mimes:jpeg,jpg,jfif,png|max:2048',
+            'fichier_audio' => 'required|mimes:mp3,mp4|max:4048',
+        ]);
         $image_couverture = Cloudinary::upload($request->file('image_couverture')->getRealPath())->getSecurePath();
+        $fichier_audio = Cloudinary::upload($request->file('fichier_audio')->getRealPath(), ["resource_type" => "video"])->getSecurePath();
         $pieces = new pieces;
         $pieces->titre = $request->titre;
-        $pieces->artiste = $request->artiste;
-        $pieces->fichier_audio = $fichier_audio;
+        $pieces->artiste_id = $request->artiste;
         $pieces->image_couverture = $image_couverture;
+        $pieces->fichier_audio = $fichier_audio;
         $pieces->save();
         return back();
     }
@@ -144,8 +149,9 @@ class piecesController extends Controller
      * @param  \App\Models\pieces  $pieces
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pieces $pieces)
+    public function destroy(Request $request)
     {
-        //
+        pieces::where('id', $request->id)->delete();
+        return back();
     }
 }

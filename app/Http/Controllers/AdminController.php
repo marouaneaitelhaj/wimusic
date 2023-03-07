@@ -50,7 +50,7 @@ class AdminController extends Controller
     public function addartistes()
     {
         $toartistes = toartistes::join('users', 'toartistes.user_id', '=', 'users.id')->get();
-        return view('dashboard' , compact('toartistes'));
+        return view('dashboard', compact('toartistes'));
     }
     public function pieces()
     {

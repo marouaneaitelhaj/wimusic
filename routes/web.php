@@ -43,6 +43,8 @@ Route::middleware('webadmin')->group(
         Route::get('addtoplaylist', [App\Http\Controllers\playlistsController::class, 'addtoplaylist'])->name('addtoplaylist');
         Route::get('check', [App\Http\Controllers\piecesController::class, 'check'])->name('check');
         Route::get('playlistSong', [App\Http\Controllers\playlistsController::class, 'playlistSong'])->name('playlistSong');
+        Route::get('bandes', [App\Http\Controllers\bandesController::class, 'index'])->name('bande');
+        Route::get('bande/{id}', [App\Http\Controllers\bandesController::class, 'one'])->name('onebande');
     }
 
 );
@@ -52,9 +54,13 @@ Route::middleware('admin')->group(
         Route::get('dashboard/artistes', [App\Http\Controllers\AdminController::class, 'artistes']);
         Route::get('dashboard/pieces', [App\Http\Controllers\AdminController::class, 'pieces']);
         Route::post('dashboard/pieces', [App\Http\Controllers\piecesController::class, 'update'])->name('update/pieces');
+        Route::get('dashboard/Bandes', [App\Http\Controllers\bandesController::class, 'dashboardBandes'])->name('dashboardBandes');
+        Route::get('dashboard/Bandes/update', [App\Http\Controllers\bandesController::class, 'update'])->name('updateBandes');
         Route::post('dashboard/pieces/add', [App\Http\Controllers\piecesController::class, 'store'])->name('addpieces');
         Route::get('dashboard/addartistes', [App\Http\Controllers\AdminController::class, 'addartistes']);
         Route::get('dashboard/convertToArtistes', [App\Http\Controllers\AdminController::class, 'convertToArtistes'])->name('convertToArtistes');
         Route::get('dashboard/ban/{id}', [App\Http\Controllers\AdminController::class, 'ban']);
+        Route::get('Deletepieces', [App\Http\Controllers\piecesController::class, 'destroy'])->name('Deletepieces');
+        Route::post('addbandes', [App\Http\Controllers\bandesController::class, 'store'])->name('addbandes');
     }
 );

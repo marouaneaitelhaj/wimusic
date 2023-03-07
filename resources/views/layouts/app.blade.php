@@ -25,42 +25,43 @@
 
 <body class="bg-black">
     <div id="app" style="min-height:100vh;position:relative;">
-        <nav style="background: transparent;" class="navbar navbar-expand-md navbar-light shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
-                    <span class="maincolor text-warning">WiMusic</span>
-                </a>
+        <nav class="navbar navbar-expand-md navbar-light bg-transparent shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            {{-- {{ config('app.name', 'Laravel') }} --}}
+            <span class="maincolor text-warning">WiMusic</span>
+        </a>
+
+        <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+            </ul>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                 @if (url()->current() == 'http://127.0.0.1:8000/discover')
-                    <div class="input-group">
-                        <div class="form-outline">
-                            <input type="search" id="form1" class="form-control" />
+                    <li class="nav-item">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input type="search" id="form1" class="form-control" />
+                            </div>
+                            <button type="button" class="btn btn-warning">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
-                        <button type="button" class="btn btn-warning">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+                    </li>
                 @endif
-                <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @if (auth()->guard('admin')->check())
-                            <li class="nav-item">
-                                <a class="nav-link text-warning" href="{{ route('dashboard') }}">Dashboard</a>
-                            </li>
-                        @endif
+                @if (auth()->guard('admin')->check())
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="{{ route('dashboard') }}">Dashboard</a>
+                    </li>
+                @endif
                         <li class="nav-item">
                             <a class="nav-link text-warning" href="./">Home</a>
                         </li>
@@ -69,6 +70,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-warning" href="{{ url('discover') }}">Discover</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="{{ url('bandes') }}">Bandes</a>
                         </li>
                         @unless(auth()->guard('admin')->check() ||
                                 auth()->guard('web')->check())

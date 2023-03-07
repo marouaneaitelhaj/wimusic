@@ -4,6 +4,9 @@
     <div>
         <div class="d-flex justify-content-around">
             <div>
+                <img class="playbtn rounded-circle m-4 mx-auto d-block card-img-top"
+                    src="{{ $data->image }}" alt="Card image cap"
+                    style="object-fit: cover; width: 150px; height: 150px;">
                 <h1 class="text-white">{{ $data->name }}</h1>
             </div>
         </div>

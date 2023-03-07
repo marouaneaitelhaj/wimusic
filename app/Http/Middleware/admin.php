@@ -19,5 +19,6 @@ class admin
         if (auth()->guard('admin')->check()) {
             return $next($request);
         }
+        return redirect()->route('login');
     }
 }
