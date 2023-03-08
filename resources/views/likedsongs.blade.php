@@ -4,9 +4,7 @@
         @foreach ($data as $track)
             <div value='{{ $track->fichier_audio }}' class="card  d-flex justify-content-center align-items-center"
                 style="width:100%;max-width:400px;margin: 1rem;">
-                <a href="{{ route('deletefromplaylis', ['id' => $track->id, 'playlists_id' => $track->playlists_id]) }}" class="" style="position: absolute; top: 0; right: 0;">
-                    <i class="fa fa-trash text-warning"></i>
-                </a>
+                
                 <img class="playbtn rounded-circle m-4 mx-auto d-block card-img-top"
                     style="object-fit: cover;width: 150px;height: 150px;" src="{{ $track->image_couverture }}"
                     alt="Card image cap">

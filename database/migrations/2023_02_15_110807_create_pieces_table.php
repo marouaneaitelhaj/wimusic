@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('titre');
             $table->string('image_couverture');
             $table->string('fichier_audio');
+            $table->boolean('ban')->default(0);
             $table->unsignedBigInteger('artiste_id');
             $table->foreign('artiste_id')->references('id')->on('artistes');
             $table->timestamps();

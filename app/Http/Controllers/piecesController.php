@@ -13,6 +13,17 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class piecesController extends Controller
 {
+    public function ban($id)
+    {
+        $artiste = pieces::find($id);
+        if ($artiste->ban == 1) {
+            $artiste->update(['ban' => 0]);
+        } else {
+            $artiste->update(['ban' => 1]);
+        }
+        $artiste->save();
+        return back();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,30 +37,30 @@ class piecesController extends Controller
             if (!$something == null) {
                 $data = pieces::where('id', 'LIKE', '%' . $something . '%')
                     ->orWhere('titre', 'LIKE', '%' . $something . '%')
-                    ->get();
+                    ->where('ban', 1)->get();
             } else {
-                $data = pieces::all();
+                $data = pieces::where('ban', 1)->get();
             }
             return view('discover', compact('data', 'playlists'));
         } else {
             if (!$something == null) {
                 $data = pieces::where('id', 'LIKE', '%' . $something . '%')
                     ->orWhere('titre', 'LIKE', '%' . $something . '%')
-                    ->get();
+                    ->where('ban', 1)->get();
             } else {
-                $data = pieces::all();
+                $data = pieces::where('ban', 1)->get();
             }
 
             return view('discover', compact('data'));
         }
     }
-    public function single($slug)
+    public function single($id)
     {
         $user_id = Auth::user()->id;
-        // dd($user_id, $id);
-        $commenter = commenter::where('song_id', $slug)->join('users', 'commenter.user_id', '=', 'users.id')->get();
+        $commenter = commenter::where('song_id', $id)->get();
+        // $commenter = commenter::where('song_id', $id)->join('users', 'commenter.user_id', '=', 'users.id')->get();
         $playlists = playlists::where('user_id', '=', $user_id)->get();
-        $track = pieces::where('id', $slug)->first();
+        $track = pieces::where('id', $id)->first();
         return view('single', compact('track', 'playlists', 'commenter'));
     }
     public function check($request)
@@ -60,17 +71,23 @@ class piecesController extends Controller
             return 1;
         }
     }
+    public function likedsongs()
+    {
+        $user_id = Auth::user()->id;
+        $data = likedsongs::where('user_id', $user_id)->join('pieces', 'likedsongs.song_id', '=', 'pieces.id')->get();
+        return view('likedsongs', compact('data'));
+    }
     public function liked(Request $request)
     {
         if (likedsongs::where('song_id', $request->id)->where('user_id', $request->user_id)->exists()) {
             likedsongs::where('song_id', $request->id)->where('user_id', $request->user_id)->delete();
-            return back();
+            return back()->withErrors(['success' => 'Song removed from liked songs']);
         } else {
             $liked = new likedsongs;
             $liked->song_id = $request->id;
             $liked->user_id = $request->user_id;
             $liked->save();
-            return back();
+            return back()->withErrors(['success' => 'Song added to liked songs']);
         }
     }
 

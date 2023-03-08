@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    {{-- @error('error')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    @error('success')
+        <div class="alert alert-success">{{ $message }}</div>
+    @enderror --}}
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-warning">{{ $error }}</div>
+    @endforeach
     <div class="mainone d-flex justify-content-center flex-wrap">
         @foreach ($data as $track)
             <div value="{{ $track->fichier_audio }}" class="card mx-2 my-4" style="width: 20rem; height: 25rem;">
@@ -9,10 +18,9 @@
                 @if (!auth()->guard('admin')->check())
                     <div class="d-flex justify-content-around">
                         <i class="more fa-sharp fa-solid fa-ellipsis text-warning"></i>
-                        <p class="text-white">{{$track->slug}}</p>
-                        {{-- <a class="text-warning" href="{{ route('single', ['slug' => $track->slug]) }}">
+                        <a class="text-warning" href="{{ route('single', ['id' => $track->id]) }}">
                             <i class="fa-solid fa-right-to-bracket text-warning"></i>
-                        </a> --}}
+                        </a>
                     </div>
                 @endif
                 <div class="d-flex flex-column justify-content-center align-items-center  position-relative">

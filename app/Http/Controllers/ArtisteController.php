@@ -37,7 +37,7 @@ class ArtisteController extends Controller
             ]);
         }
     }
-    
+
     public function artistes(artiste $artiste)
     {
         $data = artiste::where('ban', 1)->get();
@@ -88,9 +88,10 @@ class ArtisteController extends Controller
      * @param  \App\Models\artiste  $artiste
      * @return \Illuminate\Http\Response
      */
-    public function edit(artiste $artiste)
+    public function edit(Request $request)
     {
-        //
+        artiste::where('id', $request->id)->update(['nom' => $request->nom, 'pays' => $request->pays]);
+        return back()->with('success', 'Votre demande a été envoyée avec succès');
     }
 
     /**

@@ -14,4 +14,12 @@ class commenter extends Model
         'song_id',
         'comment',
     ];
+    public function pieces()
+    {
+        return $this->belongsTo(pieces::class, 'song_id');
+    }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

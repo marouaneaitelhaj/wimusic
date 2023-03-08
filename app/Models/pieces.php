@@ -8,8 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class pieces extends Model
 {
     use HasFactory;
-    public function getRouteKeyName()
+    public $fillable = [
+        'titre',
+        'artiste',
+        'genre',
+        'album',
+        'image',
+        'audio',
+        'ban',
+        'user_id',
+    ];
+    public function commenter()
     {
-        return 'slug';
+        return $this->hasMany(commenter::class, 'song_id', 'id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\admin;
 use App\Models\artiste;
+use App\Models\commenter;
 use App\Models\pieces;
 use App\Models\User;
 use App\Models\toartistes;
@@ -26,6 +27,11 @@ class AdminController extends Controller
         User::where('id', $user->id)->update(['type' => 'artiste']);
         $toartistes = toartistes::where('user_id', $user->id)->delete();
         return back();
+    }
+    public function Comment()
+    {
+        $commenter = commenter::all();
+        return view('dashboard', compact('commenter'));
     }
     public function loginFront()
     {

@@ -37,6 +37,9 @@ class commenterController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'comment' => 'required'
+        ]);
         $id = Auth::user()->id;
         $comment = new commenter;
         $comment->user_id = $id;
@@ -86,8 +89,9 @@ class commenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        commenter::where('id', $request->id)->delete();
+        return back();
     }
 }

@@ -6,6 +6,15 @@
     --main-bg-color: #FFA500;
     --main-bbg-color: black;
 }
+  .welcome-message {
+        font-size: 10vh;
+    }
+
+    @media screen and (max-width: 768px) {
+        .welcome-message {
+            font-size: 6vh;
+        }
+    }
 .card{
     background-color: black;
 }

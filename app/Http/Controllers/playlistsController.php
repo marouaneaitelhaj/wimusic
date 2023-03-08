@@ -13,6 +13,11 @@ class playlistsController extends Controller
     {
         return view('addplaylist');
     }
+    public function deletefromplaylis(Request $request)
+    {
+        $data = playlists_songs::where('playlists_id', '=', $request->playlists_id)->where('song_id', '=', $request->id)->delete();
+        return back();
+    }
     public function store(Request $request)
     {
         $playlists = new playlists;
@@ -30,10 +35,15 @@ class playlistsController extends Controller
     }
     public function addtoplaylist(Request $request)
     {
-        $playlistssongs = new playlists_songs;
-        $playlistssongs->playlists_id = $request->playlists_id;
-        $playlistssongs->song_id = $request->song_id;
-        $playlistssongs->save();
-        return redirect('./discover');
+        $isexist = playlists_songs::where('playlists_id', '=', $request->playlists_id)->where('song_id', '=', $request->song_id)->first();
+        if (!$isexist == null) {
+            return back()->withErrors(['error' => 'This song is already in this playlist']);
+        } else {
+            $playlistssongs = new playlists_songs;
+            $playlistssongs->playlists_id = $request->playlists_id;
+            $playlistssongs->song_id = $request->song_id;
+            $playlistssongs->save();
+            return back()->withErrors(['success' => 'Song added to playlist']);
+        }
     }
 }

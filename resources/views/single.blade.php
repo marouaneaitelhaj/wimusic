@@ -55,9 +55,23 @@
                     <!-- subtracting the height of the form below -->
                     @foreach ($commenter as $comment)
                         <div class="comment d-flex">
-                            <div class="p-2 commenter text-warning">{{ $comment->name }}</div>
-                            <div class="ml-auto p-2 comment-content font-weight-light text-white">{{ $comment->comment }}
-                            </div>
+                            @if ($comment->users->name == Auth::user()->name)
+                                <div class="p-2 commenter text-warning">{{ $comment->users->name }}</div>
+                                <div class="ml-auto p-2 comment-content font-weight-light text-white">
+                                    {{ $comment->comment }}
+                                </div>
+                                <div class="p-2">
+                                    <a href="{{ route('deleteComment', ['id' => $comment->id]) }}">
+                                        <i class="fa-solid fa-trash text-warning"></i>
+                                    </a>
+                                </div>
+                            @else
+                                <div class="p-2 commenter text-warning">{{ $comment->users->name }}</div>
+                                <div class="ml-auto p-2 comment-content font-weight-light text-white">
+                                    {{ $comment->comment }}
+                                </div>
+                            @endif
+
                         </div>
                     @endforeach
                 </div>
@@ -67,7 +81,7 @@
                         <input type="number" name="song_id" hidden value="{{ $track->id }}">
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea class="form-control" name="comment" id="comment-content" rows="1"></textarea>
+                                <input type="text" class="form-control " name="comment" id="comment-content" required>
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i
                                             class="fa-solid fa-comment"></i></button>

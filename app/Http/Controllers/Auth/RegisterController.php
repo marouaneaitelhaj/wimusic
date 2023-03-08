@@ -68,7 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $url = Cloudinary::upload($data['image']->getRealPath())->getSecurePath();
+        $url =  ::upload($data['image']->getRealPath())->getSecurePath();
 
         return  User::create([
             'name' => $data['name'],

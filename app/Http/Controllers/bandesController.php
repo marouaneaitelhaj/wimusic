@@ -18,8 +18,16 @@ class bandesController extends Controller
      */
     public function index()
     {
-        $bandes = bandes::all();
+        $bandes = bandes::where('ban', 1)->get();
         return view('bande', compact('bandes'));
+    }
+    public function editbande(Request $request)
+    {
+        $bandes = bandes::where('id', $request->id)->first();
+        $bandes->nom = $request->nom;
+        $bandes->pays = $request->pays;
+        $bandes->save();
+        return back();
     }
     public function dashboardBandes()
     {
